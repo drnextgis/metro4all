@@ -10,7 +10,7 @@ with open(os.path.join(here, 'CHANGES.txt')) as f:
 
 requires = [
     'pyramid',
-    'pyramid_chameleon',
+    'pyramid_beaker',
     'pyramid_debugtoolbar',
     'pyramid_tm',
     'SQLAlchemy',
@@ -19,7 +19,7 @@ requires = [
     'waitress',
     'psycopg2',
     'GeoAlchemy2',
-    # 'pygdal'
+    'pygdal'
     ]
 
 setup(name='metro4all',
