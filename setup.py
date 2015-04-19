@@ -22,9 +22,9 @@ requires = [
     # 'pygdal'
     ]
 
-setup(name='metro-bugs',
+setup(name='metro4all',
       version='0.0',
-      description='metro-bugs',
+      description='metro4all',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
         "Programming Language :: Python",
