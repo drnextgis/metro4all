@@ -19,12 +19,12 @@ requires = [
     'waitress',
     'psycopg2',
     'GeoAlchemy2',
-    'pygdal'
+    # 'pygdal'
     ]
 
-setup(name='metro4all',
+setup(name='metro-bugs',
       version='0.0',
-      description='metro4all',
+      description='metro-bugs',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
         "Programming Language :: Python",
