@@ -46,6 +46,8 @@ setup(name='metro4all',
       [paste.app_factory]
       main = metro4all:main
       [console_scripts]
+      initialize_metro4all_db = metro4all.scripts.initializedb:main
       upload_city_data = metro4all.scripts.upload:main
+      upload_csv = metro4all.scripts.upload_csv:main
       """,
       )
