@@ -4,6 +4,7 @@ from sqlalchemy import (
     Integer,
     BigInteger,
     Unicode,
+    DateTime,
     Enum,
     Boolean,
     ForeignKey,
@@ -44,6 +45,7 @@ class City(Base):
     __tablename__ = 'city'
 
     id = Column(Integer, primary_key=True)
+    old_keyname = Column(Unicode(4), unique=True)
     translation = Column(MutableDict.as_mutable(HSTORE))
 
     stations = relation('Station', backref='city')
@@ -53,6 +55,10 @@ class Station(Base):
     __tablename__ = 'station'
 
     id = Column(Integer, primary_key=True)
+
+    old_id = Column(Integer)
+    old_city_keyname = Column(Unicode(4))
+
     osm_id = Column(BigInteger)
     city_id = Column(Integer, ForeignKey('city.id'), nullable=False)
     node_id = Column(Integer, ForeignKey('node.id'))
@@ -68,8 +74,11 @@ class Node(Base):
     __tablename__ = 'node'
 
     id = Column(Integer, primary_key=True)
-    geom_local = Column(Geometry('POLYGON'))
 
+    old_id = Column(Integer)
+    old_city_keyname = Column(Unicode(4))
+
+    geom_local = Column(Geometry('POLYGON'))
     stations = relation('Station', backref='node')
     obstacles = relation('Obstacle', backref='node')
 
