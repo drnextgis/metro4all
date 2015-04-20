@@ -2,6 +2,7 @@
 from datetime import datetime
 from collections import OrderedDict
 
+from pyramid.config import not_
 from pyramid.response import Response
 from pyramid.view import view_config
 
@@ -39,7 +40,7 @@ def reports_list(request):
         'TotalRecordCount': 100
     }
 
-@view_config(route_name='create_report', request_method='POST')
+@view_config(route_name='reports', request_method='POST')
 def create_report(request):
     
     body = request.json_body

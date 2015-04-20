@@ -45,6 +45,6 @@ def main(argv=sys.argv):
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
     with transaction.manager:
-        DBSession.add(ReportCategory(display_name=dict(ru=u"Информация")))
-        DBSession.add(ReportCategory(display_name=dict(ru=u"Ошибка")))
-        DBSession.add(ReportCategory(display_name=dict(ru=u"Проблема доступа")))
+        DBSession.add(ReportCategory(translation=dict(name_ru=u"Информация")))
+        DBSession.add(ReportCategory(translation=dict(name_ru=u"Ошибка")))
+        DBSession.add(ReportCategory(translation=dict(name_ru=u"Проблема доступа")))

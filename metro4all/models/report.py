@@ -11,7 +11,7 @@ class ReportCategory(Base):
     __tablename__ = 'report_category'
 
     id = Column(Integer, primary_key=True)
-    display_name = Column(MutableDict.as_mutable(HSTORE))
+    translation = Column(MutableDict.as_mutable(HSTORE))
 
 
 class ReportPhoto(Base):
