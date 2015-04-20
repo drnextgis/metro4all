@@ -6,6 +6,7 @@ from sqlalchemy.dialects.postgresql import HSTORE
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy import Column, Integer, Unicode, DateTime, ForeignKey, Boolean
 
+
 class ReportCategory(Base):
     __tablename__ = 'report_category'
 

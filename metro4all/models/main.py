@@ -41,6 +41,7 @@ station_portal = Table('station_portal', Base.metadata,
     Column('portal_id', Integer, ForeignKey('portal.id'))
 )
 
+
 class City(Base):
     __tablename__ = 'city'
 
