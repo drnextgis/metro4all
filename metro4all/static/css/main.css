@@ -1,3 +1,12 @@
 #reportsTable td, th {
     padding: 0;
 }
+
+#reportsTable select {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    height: auto;
+    width: auto;
+    color: #000000;
+}
