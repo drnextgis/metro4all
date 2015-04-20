@@ -1,3 +1,7 @@
+div.container {
+    min-width: 600px;
+}
+
 #reportsTable td, th {
     padding: 0;
 }
@@ -10,3 +14,34 @@
     width: auto;
     color: #000000;
 }
+
+div.row div.reportsTable {
+    padding: 0;
+}
+
+div.subtitle {
+    background-color: #2296F4;
+}
+
+div.title {
+    background-color: #3BA1F4;
+}
+
+div.filter div.collapsible-header {
+    color: #8f8f8f;
+}
+
+div.filter div.collapsible-header:hover {
+    color: #363636;
+}
+
+div.filter div.select {
+    width: 25%;
+}
+
+@media only screen and (max-width: 900px) {
+    div.filter div.select {
+        width: 100%;
+    }
+}
+

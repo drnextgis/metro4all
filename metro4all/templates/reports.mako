@@ -9,7 +9,7 @@
     <![endif]-->
     <link href="${request.static_url('metro4all:static/contrib/jquery-ui-1.11.4/jquery-ui.css')}"
           rel="stylesheet" type="text/css"/>
-    <link href="${request.static_url('metro4all:static/contrib/jtable.2.4.0/themes/lightcolor/gray/jtable.css')}"
+    <link href="${request.static_url('metro4all:static/contrib/jtable.2.4.0/themes/metro/metro4all/jtable.css')}"
           rel="stylesheet" type="text/css"/>
     <link href="${request.static_url('metro4all:static/contrib/materialize/css/materialize.css')}"
           rel="stylesheet" type="text/css"/>
@@ -21,35 +21,35 @@
 
 <div class="container">
 
-    <div class="row blue lighten-1 blue-text text-lighten-5">
-        <div class="col s12 blue lighten-2"><h2>MetroForAll / Reports</h2></div>
-        <div class="col s12 blue-text text-lighten-4"><h4>Система сбора сообщений от пользователей</h4></div>
+    <div class="row title">
+        <div class="col s12 blue-text text-lighten-5"><h2>MetroForAll</h2></div>
+        <div class="col s12 subtitle blue-text text-lighten-4"><h4>Система сбора сообщений от пользователей</h4></div>
     </div>
 
 
     <div class="row">
         <div class="col s6"></div>
     </div>
-    <div class="row">
+    <div class="row filter">
         <ul class="collapsible" data-collapsible="accordion">
             <li>
                 <div class="collapsible-header"><i class="mdi-action-search"></i>Фильтр</div>
                 <div class="collapsible-body">
                     <form class="col s12">
                         <div class="row">
-                            <div class="col s3">
+                            <div class="col select">
                                 <label>Город</label>
                                 <select class="browser-default">
                                     <option value="" disabled selected>Выберите город</option>
                                 </select>
                             </div>
-                            <div class="col s3">
+                            <div class="col select">
                                 <label>Узел</label>
                                 <select class="browser-default">
                                     <option value="" disabled selected>Выберите узел</option>
                                 </select>
                             </div>
-                            <div class="col s3">
+                            <div class="col select">
                                 <label>Категория</label>
                                 <select class="browser-default">
                                     <option value="" disabled selected>Выберите категорию</option>
@@ -63,7 +63,7 @@
 
     </div>
     <div class="row">
-        <div class="col s12">
+        <div class="col s12 reportsTable">
             <div id="reportsTable"></div>
         </div>
     </div>
@@ -88,11 +88,11 @@
         });
 
         $('#reportsTable').jtable({
-            title: 'Таблица сообщений',
+##            title: 'Таблица сообщений',
             paging: true,
             pageSize: 10,
             sorting: true,
-            defaultSorting: 'City ASC',
+            defaultSorting: 'CreatedDate ASC',
             actions: {
                 listAction: '/reports/list',
                 updateAction: '/reports/update'
@@ -100,19 +100,23 @@
             fields: {
                 Id: {
                     key: true,
-                    list: false
+                    list: false,
+                    edit: false
                 },
                 City: {
                     title: 'Город',
-                    width: '20%'
+                    width: '20%',
+                    edit: false
                 },
                 Station: {
                     title: 'Узел',
-                    width: '20%'
+                    width: '20%',
+                    edit: false
                 },
                 Text: {
                     title: 'Описание',
-                    width: '20%'
+                    width: '20%',
+                    edit: false
                 },
                 Category: {
                     title: 'Категория',
