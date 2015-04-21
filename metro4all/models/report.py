@@ -6,6 +6,7 @@ from ..utils import JsonifyMixin
 from sqlalchemy.dialects.postgresql import HSTORE
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy import Column, Integer, Unicode, DateTime, ForeignKey, Boolean
+from sqlalchemy.orm import relationship
 
 
 class ReportCategory(Base):
@@ -15,7 +16,7 @@ class ReportCategory(Base):
     translation = Column(MutableDict.as_mutable(HSTORE))
 
 
-class ReportPhoto(Base):
+class ReportPhoto(Base, JsonifyMixin):
     __tablename__ = 'report_photo'
 
     id = Column(Integer, primary_key=True)
@@ -40,3 +41,4 @@ class Report(Base, JsonifyMixin):
     city = Column(Unicode(4), nullable=False)
     node = Column(Integer, nullable=True)
     category = Column(ForeignKey('report_category.id'), nullable=False)
+    photos = relationship(ReportPhoto)
