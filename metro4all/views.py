@@ -61,7 +61,7 @@ def reports_list(request):
         result_entity['photos'] = [photo.as_json_dict() for photo in report.photos]
         result_entity['category_name'] = report_entity[1]
         result_entity['city_name'] = report_entity[2]
-        result_entity['node_name'] = '/'.join([station.translation['name_ru'] for station in report.node.stations])
+        result_entity['node_name'] = '/'.join([station.translation['name_ru'] for station in report.node.stations]) if report.node else None
         result_entity['report_on'] = report.report_on.strftime('%Y/%m/%d %H:%M')
         result.append(result_entity)
 

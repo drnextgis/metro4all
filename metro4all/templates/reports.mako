@@ -94,8 +94,8 @@
         });
 
         $('#reportsTable').jtable({
-##            title: 'Таблица сообщений',
-            paging: true,
+            ##            title: 'Таблица сообщений',
+                        paging: true,
             pageSize: 10,
             sorting: true,
             defaultSorting: 'report_on ASC',
@@ -117,7 +117,11 @@
                 node_name: {
                     title: 'Узел',
                     width: '20%',
-                    edit: false
+                    edit: false,
+                    display: function (data) {
+                        var record = data.record;
+                        return record.node_name || 'Не указан';
+                    }
                 },
                 message: {
                     title: 'Описание',
@@ -131,7 +135,6 @@
                 report_on: {
                     title: 'Создан',
                     width: '20%',
-##                    type: 'date',
                     create: false,
                     edit: false
                 }
