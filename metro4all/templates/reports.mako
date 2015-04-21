@@ -114,7 +114,7 @@
                     width: '20%',
                     edit: false
                 },
-                Station: {
+                node_name: {
                     title: 'Узел',
                     width: '20%',
                     edit: false
