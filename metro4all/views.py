@@ -55,7 +55,7 @@ def reports_list(request):
         .options(joinedload('node.stations'))\
         .join(ReportCategory, Report.category == ReportCategory.id)\
         .join(City, Report.city == City.old_keyname)\
-        .slice(start_index, page_size) \
+        .slice(start_index * page_size, (start_index + 1) * page_size) \
         .all()
 
     result = []
@@ -65,7 +65,16 @@ def reports_list(request):
         result_entity['photos'] = [photo.as_json_dict() for photo in report.photos]
         result_entity['category_name'] = report_entity[1]
         result_entity['city_name'] = report_entity[2]
-        result_entity['node_name'] = '/'.join([station.translation['name_ru'] for station in report.node.stations]) if report.node else None
+
+        if report.node:
+            station_names = []
+            for station in report.node.stations:
+                if 'name_ru' in station.translation:
+                    station_names.append(station.translation['name_ru'])
+                elif 'name_en' in station.translation:
+                    station_names.append(station.translation['name_en'])
+            result_entity['node_name'] = '/'.join(station_names)
+
         result_entity['report_on'] = report.report_on.strftime('%Y/%m/%d %H:%M')
         result.append(result_entity)
 
