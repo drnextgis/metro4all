@@ -15,6 +15,11 @@ div.container {
     color: #000000;
 }
 
+#reportsTable tr.jtable-no-data-row td {
+    padding: 10px;
+    text-align: center;
+}
+
 div.row div.reportsTable {
     padding: 0;
 }
