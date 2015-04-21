@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from .main import Base
+from ..utils import JsonifyMixin
 
 from sqlalchemy.dialects.postgresql import HSTORE
 from sqlalchemy.ext.mutable import MutableDict
@@ -18,11 +19,10 @@ class ReportPhoto(Base):
     __tablename__ = 'report_photo'
 
     id = Column(Integer, primary_key=True)
-    report = Column(ForeignKey('report.id'), nullable=False)
     photo = Column(Unicode(32), nullable=False)
 
 
-class Report(Base):
+class Report(Base, JsonifyMixin):
     __tablename__ = 'report'
 
     id = Column(Integer, primary_key=True)
@@ -36,7 +36,5 @@ class Report(Base):
     email = Column(Unicode, nullable=True)
     preview = Column(Unicode(32), nullable=True)
     fixed = Column(Boolean, default=False)
-
-    category = Column(ForeignKey('report_category.id'), nullable=False)
     city = Column(Unicode(4), nullable=False)
     node = Column(Integer, nullable=True)
