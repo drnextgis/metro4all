@@ -17,6 +17,8 @@ from .models import (
     ReportPhoto
     )
 
+from sqlalchemy.orm import joinedload
+
 
 @view_config(route_name='home', renderer='home.mako')
 def home(request):
@@ -34,15 +36,32 @@ def reports(request):
 
 @view_config(route_name='reports_list', renderer='json')
 def reports_list(request):
+    session = DBSession()
+
+    start_index = int(request.GET['jtStartIndex'])
+    page_size = int(request.GET['jtPageSize'])
+    sorting = request.GET['jtSorting']
+
+    reports_count = session.query(Report).count()
+
+    reports_from_db = session.query(Report, ReportCategory)\
+        .options(joinedload('photos'))\
+        .join(ReportCategory, Report.category == ReportCategory.id)\
+        .join(City, Report.city == City.old_keyname)\
+        .slice(start_index, page_size) \
+        .all()
+
+    result = []
+    for report_entity in reports_from_db:
+        result_entity = report_entity[0].as_json_dict()
+        result_entity['photos'] = [photo.as_json_dict() for photo in report_entity[0].photos]
+        result_entity['category_name'] = report_entity[1].translation['name_ru']
+        result.append(result_entity)
+
     return {
         'Result': 'OK',
-        'Records': [
-            {'Id': 1, 'City': 'Benjamin Button', 'Station': 17, 'Text': 'fadgdsfgsdfg sfsdasdf wfsdfsadfasdfs fsadfsadfasfasda ewfwqefsadfasdfasdfsdf qwefsdfsadfsadasdafsdafs', 'Category': 'Good', 'CreatedDate': '\/Date(1320259705710)\/'},
-            {'Id': 2, 'City': 'Douglas Adams', 'Station': 42, 'Text': '\/Date(1320259705710)\/', 'Category': 'Good', 'CreatedDate': '\/Date(1320259705710)\/'},
-            {'Id': 3, 'City': 'Isaac Asimov', 'Station': 26, 'Text': '\/Date(1320259705710)\/', 'Category': 'Good', 'CreatedDate': '\/Date(1320259705710)\/'},
-            {'Id': 4, 'City': 'Thomas More', 'Station': 65, 'Text': '\/Date(1320259705710)\/', 'Category': 'Good', 'CreatedDate': '\/Date(1320259705710)\/'}
-        ],
-        'TotalRecordCount': 100
+        'Records': result,
+        'TotalRecordCount': reports_count
     }
 
 
