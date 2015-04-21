@@ -104,7 +104,7 @@
                 updateAction: '/reports/update'
             },
             fields: {
-                Id: {
+                id: {
                     key: true,
                     list: false,
                     edit: false
@@ -119,12 +119,12 @@
                     width: '20%',
                     edit: false
                 },
-                Text: {
+                message: {
                     title: 'Описание',
                     width: '20%',
                     edit: false
                 },
-                Category: {
+                category_name: {
                     title: 'Категория',
                     width: '20%'
                 },
