@@ -1,21 +1,16 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 from collections import OrderedDict
-
-from pyramid.config import not_
-from pyramid.response import Response
-from pyramid.view import view_config
-
 import base64
 import json
 import os
-import transaction
 import uuid
 
+from pyramid.response import Response
+from pyramid.view import view_config
 
 from .models import (
     DBSession,
-    Report,
     City,
     ReportCategory,
     Report,
@@ -49,6 +44,7 @@ def reports_list(request):
         ],
         'TotalRecordCount': 100
     }
+
 
 def upload(path, base64str):
     id = str(uuid.uuid4().hex)
