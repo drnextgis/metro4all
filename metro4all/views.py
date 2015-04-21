@@ -101,10 +101,13 @@ def create_report(request):
     screenshot = body.get("screenshot")
     photos = body.get("photos")
 
-    node = DBSession.query(Node)\
-        .filter(Node.old_id == node_old_id)\
-        .filter(Node.old_city_keyname == city)\
-        .one()
+    if node_old_id:
+        node = DBSession.query(Node)\
+            .filter(Node.old_id == node_old_id)\
+            .filter(Node.old_city_keyname == city)\
+            .one()
+    else:
+        node = None
 
     report = Report(**OrderedDict((
         ("device_lang", device_lang),

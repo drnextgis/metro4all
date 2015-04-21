@@ -40,7 +40,7 @@ class Report(Base, JsonifyMixin):
     fixed = Column(Boolean, default=False)
     city = Column(Unicode(4), nullable=False)
 
-    node_id = Column(ForeignKey('node.id'), nullable=False)
+    node_id = Column(ForeignKey('node.id'), nullable=True)
     node = relationship(Node)
     category = Column(ForeignKey('report_category.id'), nullable=False)
     photos = relationship(ReportPhoto)
