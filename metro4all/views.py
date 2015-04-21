@@ -23,7 +23,11 @@ from sqlalchemy.orm import joinedload
 
 @view_config(route_name='home', renderer='home.mako')
 def home(request):
-    return {'one': '1', 'project': 'metro4all'}
+    session = DBSession()
+    return {
+        'cities': session.query(City).order_by(City.translation['name_ru']),
+        'categories': session.query(ReportCategory).order_by(ReportCategory.translation['name_ru'])
+    }
 
 
 @view_config(route_name='reports', renderer='reports.mako', request_method='GET')
