@@ -98,7 +98,7 @@
                         edit: false,
                         display: function (data) {
                             var record = data.record;
-                            return record.node_name || 'Не указан';
+                            return record.node_name || '';
                         }
                     },
                     message: {
