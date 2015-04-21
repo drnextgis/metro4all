@@ -14,7 +14,8 @@ from .models import (
     City,
     ReportCategory,
     Report,
-    ReportPhoto
+    ReportPhoto,
+    Node
     )
 
 from sqlalchemy.orm import joinedload
@@ -90,9 +91,14 @@ def create_report(request):
     email = body.get("email")
     category = body.get("cat_id")
     city = body.get("city_name")
-    node = body.get("id_node")
+    node_old_id = body.get("id_node")
     screenshot = body.get("screenshot")
     photos = body.get("photos")
+
+    node = DBSession.query(Node)\
+        .filter(Node.old_id == node_old_id)\
+        .filter(Node.old_city_keyname == city)\
+        .one()
 
     report = Report(**OrderedDict((
         ("device_lang", device_lang),
