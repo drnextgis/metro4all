@@ -84,9 +84,8 @@
                 },
                 fields: {
                     id: {
-                        key: true,
-                        list: false,
-                        edit: false
+                        title: '#',
+                        width: '3%'
                     },
                     city_name: {
                         title: 'Город',
