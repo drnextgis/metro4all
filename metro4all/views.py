@@ -62,6 +62,7 @@ def reports_list(request):
         result_entity['category_name'] = report_entity[1]
         result_entity['city_name'] = report_entity[2]
         result_entity['node_name'] = '/'.join([station.translation['name_ru'] for station in report.node.stations])
+        result_entity['report_on'] = report.report_on.strftime('%Y/%m/%d %H:%M')
         result.append(result_entity)
 
     return {
