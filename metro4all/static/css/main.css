@@ -54,3 +54,8 @@ div.filter div.select {
         width: 100%;
     }
 }
+
+/* Edit page */
+#edit h3 {
+    color: #2296F4;
+}

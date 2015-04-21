@@ -146,3 +146,10 @@ def create_report(request):
     return Response(
         json.dumps(dict(id=report.id)),
         content_type=b'application/json')
+
+
+@view_config(route_name='reports_edit', renderer='edit.mako', request_method='GET')
+def reports_edit(request):
+    session = DBSession()
+    report = session.query(Report).filter(Report.id == request.matchdict['id']).one()
+    return {'report': report}

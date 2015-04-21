@@ -126,8 +126,10 @@
                     },
                     edit: {
                         width: '2%',
-                        display: function () {
-                            return '<i class="mdi-action-search"></i>'
+                        display: function (data) {
+                            var url_template = '${request.route_url('reports_edit', id='report_id')}';
+                            url_template = url_template.replace('report_id', data.record.id);
+                            return '<a href="' + url_template + '"><i class="mdi-action-search"></i></a>';
                         }
                     }
                 }

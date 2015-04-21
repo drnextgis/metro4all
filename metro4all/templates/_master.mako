@@ -18,7 +18,7 @@
 <body>
 
 
-<div class="container">
+<div class="container" <%block name="container_id"/>>
 
     <div class="row title">
         <div class="col s12 blue-text text-lighten-5"><h2>MetroForAll</h2></div>
