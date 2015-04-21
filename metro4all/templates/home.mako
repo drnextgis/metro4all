@@ -7,12 +7,11 @@
           rel="stylesheet" type="text/css"/>
     <link href="${request.static_url('metro4all:static/css/reports.css')}"
           rel="stylesheet" type="text/css"/>
+    <link href="${request.static_url('metro4all:static/contrib/lightcase-2.0.3/css/lightcase.css')}"
+          rel="stylesheet" type="text/css"/>
 </%block>
 
 
-<div class="row">
-    <div class="col s6"></div>
-</div>
 <div class="row filter">
     <ul class="collapsible" data-collapsible="accordion">
         <li>
@@ -51,7 +50,7 @@
     </ul>
 
 </div>
-<div class="row">
+<div class="row table">
     <div class="col s12 reportsTable">
         <div id="reportsTable"></div>
     </div>
@@ -61,6 +60,8 @@
     <script src="${request.static_url('metro4all:static/contrib/jtable.2.4.0/jquery.jtable.min.js')}"
             type="text/javascript"></script>
     <script src="${request.static_url('metro4all:static/contrib/jtable.2.4.0/localization/jquery.jtable.ru.js')}"
+            type="text/javascript"></script>
+    <script src="${request.static_url('metro4all:static/contrib/lightcase-2.0.3/lightcase.min.js')}"
             type="text/javascript"></script>
 
     <script type="text/javascript">
@@ -77,6 +78,9 @@
                 defaultSorting: 'report_on ASC',
                 actions: {
                     listAction: '/reports/list'
+                },
+                recordsLoaded: function () {
+                    $('a[data-rel^=lightcase]').lightcase();
                 },
                 fields: {
                     id: {
@@ -124,12 +128,35 @@
                         create: false,
                         edit: false
                     },
-                    edit: {
+                    scheme: {
                         width: '2%',
                         display: function (data) {
-                            var url_template = '${request.route_url('reports_edit', id='report_id')}';
-                            url_template = url_template.replace('report_id', data.record.id);
-                            return '<a href="' + url_template + '"><i class="mdi-action-search"></i></a>';
+                            var preview = data.record.preview,
+                                    html = '';
+                            if (preview) {
+                                html = '<a data-rel="lightcase" href="http://demo.nextgis.ru:6543/images/' +
+                                preview +
+                                '.jpg"><i class="mdi-social-share"></i></a>';
+                            }
+                            return html;
+                        }
+                    },
+                    photos: {
+                        width: '2%',
+                        display: function (data) {
+                            var photos = data.record.photos,
+                                    html = '',
+                                    photosCount = photos.length;
+                            if (photosCount > 0) {
+                                for (var i = 0; i < photosCount; i++) {
+                                html += '<a data-rel="lightcase:' + data.record.id +
+                                    '" href="http://demo.nextgis.ru:6543/images/' +
+                                    photos[i].photo +
+                                    '.jpg"><i ' + (i == 0 ? 'class="mdi-maps-local-see' : '') +
+                                    '"></i></a>';
+                                }
+                            }
+                            return html;
                         }
                     }
                 }
@@ -137,4 +164,5 @@
             $('#reportsTable').jtable('load');
         });
     </script>
+
 </%block>
