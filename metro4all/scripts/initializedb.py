@@ -43,6 +43,7 @@ def main(argv=sys.argv):
     engine = create_engine(sa_url)
 
     DBSession.configure(bind=engine)
+    Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
     with transaction.manager:
         DBSession.add(ReportCategory(translation=dict(name_ru=u"Информация")))
