@@ -6,14 +6,20 @@ from pyramid.config import not_
 from pyramid.response import Response
 from pyramid.view import view_config
 
+import base64
+import json
+import os
 import transaction
+import uuid
 
 
 from .models import (
     DBSession,
     Report,
     City,
-    ReportCategory
+    ReportCategory,
+    Report,
+    ReportPhoto
     )
 
 
@@ -24,7 +30,7 @@ def home(request):
 
 @view_config(route_name='reports', renderer='reports.mako', request_method='GET')
 def reports(request):
-    session = DBSession
+    session = DBSession()
     return {
         'cities': session.query(City).order_by(City.translation['name_ru']),
         'categories': session.query(ReportCategory).order_by(ReportCategory.translation['name_ru'])
@@ -44,6 +50,16 @@ def reports_list(request):
         'TotalRecordCount': 100
     }
 
+def upload(path, base64str):
+    id = str(uuid.uuid4().hex)
+    full_path = os.path.join(path, "%s.jpg" % id)
+    
+    with open(full_path, 'wb') as img:
+        img.write(base64.b64decode(base64str))
+    
+    return id
+
+
 @view_config(route_name='reports', request_method='POST')
 def create_report(request):
     
@@ -60,6 +76,8 @@ def create_report(request):
     category = body.get("cat_id")
     city = body.get("city_name")
     node = body.get("id_node")
+    screenshot = body.get("screenshot")
+    photos = body.get("photos")
 
     report = Report(**OrderedDict((
         ("device_lang", device_lang),
@@ -75,8 +93,22 @@ def create_report(request):
         ("node", node),
     )))
 
-    with transaction.manager:
-        DBSession.add(report)
+    path = request.registry.settings.get("upload_path")
+    if screenshot is not None:
+        spath = upload(path, screenshot)
+        report.preview = spath
 
-    return Response('OK')
+    DBSession.add(report)
+    DBSession.flush()
 
+    if photos is not None:
+        for photo in photos:
+            ppath = upload(path, photo)
+            report_photo = ReportPhoto(report=report.id, photo=ppath)
+            DBSession.add(report_photo)
+
+    DBSession.commit()
+
+    return Response(
+        json.dumps(dict(id=report.id)),
+        content_type=b'application/json')
