@@ -20,6 +20,7 @@ class ReportPhoto(Base):
 
     id = Column(Integer, primary_key=True)
     photo = Column(Unicode(32), nullable=False)
+    report = Column(ForeignKey('report.id'), nullable=False)
 
 
 class Report(Base, JsonifyMixin):
@@ -38,3 +39,4 @@ class Report(Base, JsonifyMixin):
     fixed = Column(Boolean, default=False)
     city = Column(Unicode(4), nullable=False)
     node = Column(Integer, nullable=True)
+    category = Column(ForeignKey('report_category.id'), nullable=False)
