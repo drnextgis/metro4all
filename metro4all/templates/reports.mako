@@ -15,6 +15,8 @@
           rel="stylesheet" type="text/css"/>
     <link href="${request.static_url('metro4all:static/css/main.css')}"
           rel="stylesheet" type="text/css"/>
+    <link href="${request.static_url('metro4all:static/css/reports.css')}"
+          rel="stylesheet" type="text/css"/>
 </head>
 <body>
 
@@ -130,7 +132,12 @@
                 },
                 category_name: {
                     title: 'Категория',
-                    width: '20%'
+                    width: '20%',
+                    display: function (data) {
+                        var record = data.record;
+                        return '<span data-category="' + record.category + '">' +
+                                record.category_name + '</span>';
+                    }
                 },
                 report_on: {
                     title: 'Создан',

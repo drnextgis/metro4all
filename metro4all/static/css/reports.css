@@ -1,0 +1,15 @@
+#reportsTable td span {
+    display: block;
+}
+
+#reportsTable td span[data-category='1'] {
+    background-color: #cbffb5;
+}
+
+#reportsTable td span[data-category='2'] {
+    background-color: #ff9597;
+}
+
+#reportsTable td span[data-category='3'] {
+    background-color: #ffc387;
+}
