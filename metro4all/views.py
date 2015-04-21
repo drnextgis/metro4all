@@ -45,7 +45,7 @@ def reports_list(request):
 
     reports_count = session.query(Report).count()
 
-    reports_from_db = session.query(Report, ReportCategory)\
+    reports_from_db = session.query(Report, ReportCategory.translation['name_ru'], City.translation['name_ru'])\
         .options(joinedload('photos'))\
         .join(ReportCategory, Report.category == ReportCategory.id)\
         .join(City, Report.city == City.old_keyname)\
@@ -56,7 +56,8 @@ def reports_list(request):
     for report_entity in reports_from_db:
         result_entity = report_entity[0].as_json_dict()
         result_entity['photos'] = [photo.as_json_dict() for photo in report_entity[0].photos]
-        result_entity['category_name'] = report_entity[1].translation['name_ru']
+        result_entity['category_name'] = report_entity[1]
+        result_entity['city_name'] = report_entity[2]
         result.append(result_entity)
 
     return {
