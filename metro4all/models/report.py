@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from .main import Base
+from .main import Base, Node
 from ..utils import JsonifyMixin
 
 from sqlalchemy.dialects.postgresql import HSTORE
@@ -39,6 +39,8 @@ class Report(Base, JsonifyMixin):
     preview = Column(Unicode(32), nullable=True)
     fixed = Column(Boolean, default=False)
     city = Column(Unicode(4), nullable=False)
-    node = Column(Integer, nullable=True)
+
+    node_id = Column(ForeignKey('node.id'), nullable=False)
+    node = relationship(Node)
     category = Column(ForeignKey('report_category.id'), nullable=False)
     photos = relationship(ReportPhoto)
