@@ -11,7 +11,9 @@ import transaction
 
 from .models import (
     DBSession,
-    Report
+    Report,
+    City,
+    ReportCategory
     )
 
 
@@ -22,8 +24,10 @@ def home(request):
 
 @view_config(route_name='reports', renderer='reports.mako', request_method='GET')
 def reports(request):
+    session = DBSession
     return {
-        'one': '1', 'project': 'metro4all'
+        'cities': session.query(City).order_by(City.translation['name_ru']),
+        'categories': session.query(ReportCategory).order_by(ReportCategory.translation['name_ru'])
     }
 
 

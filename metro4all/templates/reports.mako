@@ -40,19 +40,25 @@
                             <div class="col select">
                                 <label>Город</label>
                                 <select class="browser-default">
-                                    <option value="" disabled selected>Выберите город</option>
+                                    <option value="" selected>Не выбран</option>
+                                    %for city in cities:
+                                        <option value="${city.id}">${city.translation['name_ru']}</option>
+                                    %endfor
                                 </select>
                             </div>
                             <div class="col select">
                                 <label>Узел</label>
-                                <select class="browser-default">
-                                    <option value="" disabled selected>Выберите узел</option>
+                                <select class="browser-default" disabled>
+                                    <option value="" selected>Не выбран</option>
                                 </select>
                             </div>
                             <div class="col select">
                                 <label>Категория</label>
                                 <select class="browser-default">
-                                    <option value="" disabled selected>Выберите категорию</option>
+                                    <option value="" selected>Не выбрана</option>
+                                    %for cat in categories:
+                                        <option value="${cat.id}">${cat.translation['name_ru']}</option>
+                                    %endfor
                                 </select>
                             </div>
                         </div>
