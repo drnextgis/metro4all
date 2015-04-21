@@ -98,7 +98,7 @@
             paging: true,
             pageSize: 10,
             sorting: true,
-            defaultSorting: 'CreatedDate ASC',
+            defaultSorting: 'report_on ASC',
             actions: {
                 listAction: '/reports/list',
                 updateAction: '/reports/update'
@@ -109,7 +109,7 @@
                     list: false,
                     edit: false
                 },
-                City: {
+                city_name: {
                     title: 'Город',
                     width: '20%',
                     edit: false
@@ -128,10 +128,10 @@
                     title: 'Категория',
                     width: '20%'
                 },
-                CreatedDate: {
+                report_on: {
                     title: 'Создан',
                     width: '20%',
-                    type: 'date',
+##                    type: 'date',
                     create: false,
                     edit: false
                 }
