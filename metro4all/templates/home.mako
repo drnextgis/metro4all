@@ -64,10 +64,14 @@
     <script src="${request.static_url('metro4all:static/contrib/lightcase-2.0.3/lightcase.min.js')}"
             type="text/javascript"></script>
 
-    <script src="${request.static_url('metro4all:static/js/init.js')}"
+    <%
+        import time
+        timestamp = '?' + str(int(time.time()))
+    %>
+    <script src="${request.static_url('metro4all:static/js/init.js') + timestamp}"
             type="text/javascript"></script>
-    <script src="${request.static_url('metro4all:static/js/reports-table.js')}"
+    <script src="${request.static_url('metro4all:static/js/reports-table.js') + timestamp}"
             type="text/javascript"></script>
-    <script src="${request.static_url('metro4all:static/js/reports-table-filter.js')}"
+    <script src="${request.static_url('metro4all:static/js/reports-table-filter.js') + timestamp}"
             type="text/javascript"></script>
 </%block>
