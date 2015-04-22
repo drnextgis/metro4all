@@ -20,8 +20,10 @@
 <div class="container" <%block name="container_id"/>>
 
     <div class="row title">
-        <div class="col s12 blue-text text-lighten-5"><h2>MetroForAll</h2></div>
-        <div class="col s12 subtitle blue-text text-lighten-4"><h4>Система сбора сообщений от пользователей</h4></div>
+        <div class="col s12 blue-text text-lighten-5">
+            <h2>MetroForAll</h2>
+            <p>Система сбора сообщений от пользователей</p>
+        </div>
     </div>
 
     ${self.body()}

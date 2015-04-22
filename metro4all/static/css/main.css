@@ -11,7 +11,8 @@ div.subtitle {
 }
 
 div.title {
-    background-color: #3BA1F4;
+    background-color: #33B8DA;
+    border-radius: 0 0 1em 1em;
 }
 
 #reportsTable td, th {
