@@ -89,6 +89,11 @@ div.title {
     padding-left: 28px;
 }
 
+#reportsTable [type="checkbox"]:not(:checked):disabled + label:before {
+    border: 2px solid #ff786e;
+    background-color: transparent;
+}
+
 #reportsTable div.jtable-main-container > table.jtable > thead th.jtable-column-header-sortable:not(.jtable-column-header-sorted-asc):not(.jtable-column-header-sorted-desc) div.jtable-column-header-container
 {
     background: transparent;
