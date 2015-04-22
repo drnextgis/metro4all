@@ -28,12 +28,12 @@
                                 %endfor
                             </select>
                         </div>
-                        <div class="col select">
-                            <label>Узел</label>
-                            <select class="browser-default" disabled>
-                                <option value="" selected>Не выбран</option>
-                            </select>
-                        </div>
+##                        <div class="col select">
+##                            <label>Узел</label>
+##                            <select class="browser-default" disabled>
+##                                <option value="" selected>Не выбран</option>
+##                            </select>
+##                        </div>
                         <div class="col select">
                             <label>Категория</label>
                             <select class="browser-default">
@@ -64,108 +64,10 @@
     <script src="${request.static_url('metro4all:static/contrib/lightcase-2.0.3/lightcase.min.js')}"
             type="text/javascript"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            $('.collapsible').collapsible({
-                accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-            });
-
-            $('#reportsTable').jtable({
-                paging: true,
-                pageSize: 10,
-                sorting: true,
-                defaultSorting: 'report_on DESC',
-                actions: {
-                    listAction: '/reports/list'
-                },
-                recordsLoaded: function () {
-                    $('a[data-rel^=lightcase]').lightcase();
-                },
-                fields: {
-                    id: {
-                        title: '#',
-                        width: '3%'
-                    },
-                    city_name: {
-                        title: 'Город',
-                        width: '10%',
-                        edit: false
-                    },
-                    node_name: {
-                        title: 'Узел',
-                        sorting: false,
-                        width: '12%',
-                        edit: false,
-                        display: function (data) {
-                            var record = data.record;
-                            return record.node_name || '';
-                        }
-                    },
-                    message: {
-                        title: 'Описание',
-                        width: '40%',
-                        sorting: false,
-                        edit: false
-                    },
-                    report_on: {
-                        title: 'Создан',
-                        width: '10%',
-                        create: false,
-                        edit: false
-                    },
-                    category_name: {
-                        title: 'Категория',
-                        width: '12%',
-                        display: function (data) {
-                            var record = data.record;
-                            return '<span data-category="' + record.category + '">' +
-                                    record.category_name + '</span>';
-                        }
-                    },
-                    fixed: {
-                        title: 'Статус',
-                        width: '9%',
-                        create: false,
-                        edit: false
-                    },
-                    scheme: {
-                        width: '2%',
-                        sorting: false,
-                        display: function (data) {
-                            var preview = data.record.preview,
-                                    html = '';
-                            if (preview) {
-                                html = '<a data-rel="lightcase" href="http://demo.nextgis.ru:6543/images/' +
-                                preview +
-                                '.jpg"><i class="mdi-social-share"></i></a>';
-                            }
-                            return html;
-                        }
-                    },
-                    photos: {
-                        width: '2%',
-                        sorting: false,
-                        display: function (data) {
-                            var photos = data.record.photos,
-                                    html = '',
-                                    photosCount = photos.length;
-                            if (photosCount > 0) {
-                                for (var i = 0; i < photosCount; i++) {
-                                html += '<a data-rel="lightcase:' + data.record.id +
-                                    '" href="http://demo.nextgis.ru:6543/images/' +
-                                    photos[i].photo +
-                                    '.jpg"><i ' + (i == 0 ? 'class="mdi-maps-local-see' : '') +
-                                    '"></i></a>';
-                                }
-                            }
-                            return html;
-                        }
-                    }
-                }
-            });
-            $('#reportsTable').jtable('load');
-        });
-    </script>
-
+    <script src="${request.static_url('metro4all:static/js/init.js')}"
+            type="text/javascript"></script>
+    <script src="${request.static_url('metro4all:static/js/reports-table.js')}"
+            type="text/javascript"></script>
+    <script src="${request.static_url('metro4all:static/js/reports-table-filter.js')}"
+            type="text/javascript"></script>
 </%block>
