@@ -95,7 +95,7 @@
                     node_name: {
                         title: 'Узел',
                         sorting: false,
-                        width: '10%',
+                        width: '12%',
                         edit: false,
                         display: function (data) {
                             var record = data.record;
@@ -116,7 +116,7 @@
                     },
                     category_name: {
                         title: 'Категория',
-                        width: '10%',
+                        width: '12%',
                         display: function (data) {
                             var record = data.record;
                             return '<span data-category="' + record.category + '">' +
@@ -125,12 +125,12 @@
                     },
                     fixed: {
                         title: 'Статус',
-                        width: '10%',
+                        width: '9%',
                         create: false,
                         edit: false
                     },
                     scheme: {
-                        width: '4%',
+                        width: '2%',
                         sorting: false,
                         display: function (data) {
                             var preview = data.record.preview,
@@ -144,7 +144,7 @@
                         }
                     },
                     photos: {
-                        width: '4%',
+                        width: '2%',
                         sorting: false,
                         display: function (data) {
                             var photos = data.record.photos,
