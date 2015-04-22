@@ -33,6 +33,10 @@ div.title {
     text-align: center;
 }
 
+#reportsTable tr {
+    height: 35px;
+}
+
 #reportsTable i {
     font-size: 20px;
 }
