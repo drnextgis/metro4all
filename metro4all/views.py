@@ -45,18 +45,23 @@ def reports_list(request):
 
     start_index = int(request.GET['jtStartIndex'])
     page_size = int(request.GET['jtPageSize'])
-    sorting = request.GET['jtSorting']
+
+    sorting = request.GET['jtSorting'].split()
+    order_direction = 'desc' if sorting[1] == 'DESC' else 'asc'
+    column_sorted = getattr(map_report_fields(sorting[0]), order_direction)()
 
     reports_count = session.query(Report).count()
 
-    reports_from_db = session.query(Report, ReportCategory.translation['name_ru'], City.translation['name_ru'])\
+    query = session.query(Report, ReportCategory.translation['name_ru'], City.translation['name_ru'])\
         .options(joinedload('photos'))\
         .options(joinedload('node'))\
         .options(joinedload('node.stations'))\
         .join(ReportCategory, Report.category == ReportCategory.id)\
         .join(City, Report.city == City.old_keyname)\
-        .slice(start_index, start_index + page_size) \
-        .all()
+        .order_by(column_sorted)\
+        .slice(start_index, start_index + page_size)
+
+    reports_from_db = query.all()
 
     result = []
     for report_entity in reports_from_db:
@@ -83,6 +88,16 @@ def reports_list(request):
         'Records': result,
         'TotalRecordCount': reports_count
     }
+
+
+def map_report_fields(view_field):
+    return {
+        'id': Report.id,
+        'city_name': City.translation['name_ru'],
+        'report_on': Report.report_on,
+        'category_name': ReportCategory.translation['name_ru'],
+        'fixed': Report.fixed
+    }.get(view_field, None)
 
 
 def upload(path, base64str):

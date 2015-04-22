@@ -94,6 +94,7 @@
                     },
                     node_name: {
                         title: 'Узел',
+                        sorting: false,
                         width: '20%',
                         edit: false,
                         display: function (data) {
@@ -104,6 +105,7 @@
                     message: {
                         title: 'Описание',
                         width: '20%',
+                        sorting: false,
                         edit: false
                     },
                     report_on: {
@@ -129,6 +131,7 @@
                     },
                     scheme: {
                         width: '2%',
+                        sorting: false,
                         display: function (data) {
                             var preview = data.record.preview,
                                     html = '';
@@ -142,6 +145,7 @@
                     },
                     photos: {
                         width: '2%',
+                        sorting: false,
                         display: function (data) {
                             var photos = data.record.photos,
                                     html = '',
