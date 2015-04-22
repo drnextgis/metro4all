@@ -75,7 +75,7 @@
                 paging: true,
                 pageSize: 10,
                 sorting: true,
-                defaultSorting: 'report_on ASC',
+                defaultSorting: 'report_on DESC',
                 actions: {
                     listAction: '/reports/list'
                 },
@@ -89,13 +89,13 @@
                     },
                     city_name: {
                         title: 'Город',
-                        width: '20%',
+                        width: '10%',
                         edit: false
                     },
                     node_name: {
                         title: 'Узел',
                         sorting: false,
-                        width: '20%',
+                        width: '10%',
                         edit: false,
                         display: function (data) {
                             var record = data.record;
@@ -104,7 +104,7 @@
                     },
                     message: {
                         title: 'Описание',
-                        width: '20%',
+                        width: '40%',
                         sorting: false,
                         edit: false
                     },
@@ -125,12 +125,12 @@
                     },
                     fixed: {
                         title: 'Статус',
-                        width: '8%',
+                        width: '10%',
                         create: false,
                         edit: false
                     },
                     scheme: {
-                        width: '2%',
+                        width: '4%',
                         sorting: false,
                         display: function (data) {
                             var preview = data.record.preview,
@@ -144,7 +144,7 @@
                         }
                     },
                     photos: {
-                        width: '2%',
+                        width: '4%',
                         sorting: false,
                         display: function (data) {
                             var photos = data.record.photos,
