@@ -55,7 +55,7 @@ def reports_list(request):
         .options(joinedload('node.stations'))\
         .join(ReportCategory, Report.category == ReportCategory.id)\
         .join(City, Report.city == City.old_keyname)\
-        .slice(start_index * page_size, (start_index + 1) * page_size) \
+        .slice(start_index, start_index + page_size) \
         .all()
 
     result = []
