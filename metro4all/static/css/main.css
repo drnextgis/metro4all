@@ -42,6 +42,53 @@ div.title {
     font-size: 20px;
 }
 
+#reportsTable div.state div.progress {
+    display: none;
+}
+
+#reportsTable div.state.loading div.progress {
+    display: block;
+}
+
+#reportsTable div.state.loading p.state {
+    display: none;
+}
+
+#reportsTable p {
+    margin: 0;
+    padding-left: 2px;
+}
+
+#reportsTable div.state[data-state="false"] [type="checkbox"] + label:before {
+    border-color: #ff786e;
+}
+
+#reportsTable div.state[data-state="false"] label {
+    color: #ff786e;
+}
+
+#reportsTable div.state[data-state="true"] label {
+    color: #7cc68c;
+}
+
+#reportsTable div.progress {
+    background-color: #E8E8E8;
+}
+
+#reportsTable div.progress div.indeterminate {
+    background-color: #71B5ED;
+}
+
+#reportsTable p [type="checkbox"]:checked + label:before {
+    border: 2px solid transparent;
+    border-right-color: #7cc68c;
+    border-bottom-color: #7cc68c;
+}
+
+#reportsTable [type="checkbox"] + label {
+    padding-left: 28px;
+}
+
 #reportsTable div.jtable-main-container > table.jtable > thead th.jtable-column-header-sortable:not(.jtable-column-header-sorted-asc):not(.jtable-column-header-sorted-desc) div.jtable-column-header-container
 {
     background: transparent;

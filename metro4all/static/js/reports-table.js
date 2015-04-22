@@ -10,21 +10,26 @@ metroBugs.modules['reportsTable'] = {
     },
 
     initReportTable: function () {
+        var context = this;
+
         metroBugs.view.$table.jtable({
             paging: true,
             pageSize: 10,
             sorting: true,
             defaultSorting: 'report_on DESC',
             actions: {
-                listAction: '/reports/list'
+                listAction: '/reports/list',
+                deleteAction: '/Demo/DeleteStudent'
             },
             recordsLoaded: function () {
                 $('a[data-rel^=lightcase]').lightcase();
+                context.bindCheckboxesStateEvents();
             },
             fields: {
                 id: {
                     title: '#',
-                    width: '3%'
+                    width: '3%',
+                    edit: false
                 },
                 city_name: {
                     title: 'Город',
@@ -60,13 +65,21 @@ metroBugs.modules['reportsTable'] = {
                         var record = data.record;
                         return '<span data-category="' + record.category + '">' +
                             record.category_name + '</span>';
-                    }
+                    },
+                    edit: false
                 },
                 fixed: {
                     title: 'Статус',
                     width: '9%',
                     create: false,
-                    edit: false
+                    display: function (data) {
+                        var report = data.record,
+                            fixed = report.fixed;
+                        return Mustache.render(metroBugs.templates.state_checkbox, {
+                            fixed: fixed,
+                            id: report.id
+                        });
+                    }
                 },
                 scheme: {
                     width: '2%',
@@ -80,7 +93,8 @@ metroBugs.modules['reportsTable'] = {
                             '.jpg"><i class="mdi-social-share"></i></a>';
                         }
                         return html;
-                    }
+                    },
+                    edit: false
                 },
                 photos: {
                     width: '2%',
@@ -99,7 +113,8 @@ metroBugs.modules['reportsTable'] = {
                             }
                         }
                         return html;
-                    }
+                    },
+                    edit: false
                 }
             }
         });
@@ -107,5 +122,35 @@ metroBugs.modules['reportsTable'] = {
 
     loadTable: function () {
         metroBugs.view.$table.jtable('load');
+    },
+
+    bindCheckboxesStateEvents: function ($element) {
+        var context = this;
+
+        if (!$element) {
+            $element = metroBugs.view.$table.find('input.state')
+        }
+
+        $element.change(function () {
+            var $this = $(this),
+                id = $this.attr('id').split('-')[1],
+                checked = $this.is(":checked"),
+                $divState = $this.parents('div.state');
+
+            $divState.addClass('loading');
+            $.ajax({
+                url: application_root + 'reports/' + id + '/state/change',
+                method: 'POST',
+                data: {state: checked}
+            }).then(function (stateModel) {
+                context.setStateDivContent($divState, stateModel);
+            });
+        });
+    },
+
+    setStateDivContent: function ($divState, stateModel) {
+        var $td = $divState.parent();
+        $td.empty().html(Mustache.render(metroBugs.templates.state_checkbox, stateModel));
+        this.bindCheckboxesStateEvents($td.find('input.state'));
     }
 };
