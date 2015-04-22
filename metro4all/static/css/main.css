@@ -37,6 +37,11 @@ div.title {
     font-size: 20px;
 }
 
+#reportsTable div.jtable-main-container > table.jtable > thead th.jtable-column-header-sortable:not(.jtable-column-header-sorted-asc):not(.jtable-column-header-sorted-desc) div.jtable-column-header-container
+{
+    background: transparent;
+}
+
 div.filter div.collapsible-header {
     color: #8f8f8f;
 }
