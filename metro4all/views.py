@@ -19,6 +19,7 @@ from .models import (
     )
 
 from sqlalchemy.orm import joinedload
+from sqlalchemy import update
 
 
 @view_config(route_name='home', renderer='home.mako')
@@ -177,3 +178,18 @@ def reports_edit(request):
     session = DBSession()
     report = session.query(Report).filter(Report.id == request.matchdict['id']).one()
     return {'report': report}
+
+
+@view_config(route_name='change_report_state', renderer='json', request_method='POST')
+def change_report_state(request):
+    state = request.POST['state']
+    report_id = request.matchdict['id']
+
+    session = DBSession()
+    report = session.query(Report).filter(Report.id == report_id).one()
+    report.fixed = state
+    session.commit()
+    return {
+        'id': report.id,
+        'fixed': report.fixed
+    }

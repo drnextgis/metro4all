@@ -19,5 +19,6 @@ def main(global_config, **settings):
     config.add_route('reports',       '/reports')
     config.add_route('reports_list',  '/reports/list')
     config.add_route('reports_edit',  '/reports/edit/{id}')
+    config.add_route('change_report_state', '/reports/{id}/state/change')
     config.scan()
     return config.make_wsgi_app()
