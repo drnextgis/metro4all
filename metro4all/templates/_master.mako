@@ -22,6 +22,7 @@
     <div class="row title">
         <div class="col s12 blue-text text-lighten-5">
             <h2>MetroForAll</h2>
+
             <p>Система сбора сообщений от пользователей</p>
         </div>
     </div>
@@ -36,6 +37,11 @@
         type="text/javascript"></script>
 <script src="${request.static_url('metro4all:static/contrib/materialize/js/materialize.js')}"
         type="text/javascript"></script>
-<%block name="scripts"/>
+<script src="${request.static_url('metro4all:static/contrib/mustache/mustache.min.js')}"
+        type="text/javascript"></script>
+<script type="text/javascript">
+    window.application_root = '${request.route_url('home')}';
+</script>
+    <%block name="scripts"/>
 </body>
 </html>
