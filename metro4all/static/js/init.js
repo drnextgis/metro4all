@@ -11,9 +11,9 @@ $(document).ready(function () {
     var templatesDeferreds = [],
         templateDeferred;
 
-    for (var template in metroBugs.templates) {
-        templateDeferred = $.get(application_root + 'static/js/templates/' + template + '.mustache', function (template) {
-            metroBugs.templates[template] = template;
+    for (var templateName in metroBugs.templates) {
+        templateDeferred = $.get(application_root + 'static/js/templates/' + templateName + '.mustache', function (template) {
+            metroBugs.templates[templateName] = template;
         });
         templatesDeferreds.push(templateDeferred);
     }
