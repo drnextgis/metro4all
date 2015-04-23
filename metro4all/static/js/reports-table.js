@@ -10,20 +10,16 @@ metroBugs.modules['reportsTable'] = {
     },
 
     initReportTable: function () {
-        var context = this;
+        var context = this,
+            jtableSettings;
 
-        metroBugs.view.$table.jtable({
+        jtableSettings = {
             paging: true,
             pageSize: 10,
             sorting: true,
             defaultSorting: 'report_on DESC',
             actions: {
-                listAction: '/reports/list',
-                deleteAction: '/Demo/DeleteStudent'
-            },
-            recordsLoaded: function () {
-                $('a[data-rel^=lightcase]').lightcase();
-                context.bindCheckboxesStateEvents();
+                listAction: '/reports/list'
             },
             fields: {
                 id: {
@@ -77,7 +73,8 @@ metroBugs.modules['reportsTable'] = {
                             fixed = report.fixed;
                         return Mustache.render(metroBugs.templates.state_checkbox, {
                             fixed: fixed,
-                            id: report.id
+                            id: report.id,
+                            auth: metroBugs.auth
                         });
                     }
                 },
@@ -88,7 +85,7 @@ metroBugs.modules['reportsTable'] = {
                         var preview = data.record.preview,
                             html = '';
                         if (preview) {
-                            html = '<a data-rel="lightcase" href="http://demo.nextgis.ru:6543/images/' +
+                            html = '<a data-rel="lightcase" href="http://reports.metro4all.ru/images/' +
                             preview +
                             '.jpg"><i class="mdi-social-share"></i></a>';
                         }
@@ -106,7 +103,7 @@ metroBugs.modules['reportsTable'] = {
                         if (photosCount > 0) {
                             for (var i = 0; i < photosCount; i++) {
                                 html += '<a data-rel="lightcase:' + data.record.id +
-                                '" href="http://demo.nextgis.ru:6543/images/' +
+                                '" href="http://reports.metro4all.ru/images/' +
                                 photos[i].photo +
                                 '.jpg"><i ' + (i == 0 ? 'class="mdi-maps-local-see' : '') +
                                 '"></i></a>';
@@ -117,7 +114,26 @@ metroBugs.modules['reportsTable'] = {
                     edit: false
                 }
             }
-        });
+        };
+
+        if (metroBugs.auth) {
+            jtableSettings.actions.deleteAction = metroBugs.application_root + 'reports/delete';
+            jtableSettings.recordsLoaded = function () {
+                $('a[data-rel^=lightcase]').lightcase();
+                context.bindCheckboxesStateEvents();
+            };
+        } else {
+            jtableSettings.fields.edit = {
+                width: '2%',
+                sorting: false,
+                display: function (data) {
+                    return '<a href="' + metroBugs.application_root + 'edit' + '"><i class="mdi-editor-border-color"></i></a>';
+                },
+                edit: false
+            };
+        }
+
+        metroBugs.view.$table.jtable(jtableSettings);
     },
 
     loadTable: function () {
@@ -139,7 +155,7 @@ metroBugs.modules['reportsTable'] = {
 
             $divState.addClass('loading');
             $.ajax({
-                url: application_root + 'reports/' + id + '/state/change',
+                url: metroBugs.application_root + 'reports/' + id + '/state/change',
                 method: 'POST',
                 data: {state: checked}
             }).then(function (stateModel) {
