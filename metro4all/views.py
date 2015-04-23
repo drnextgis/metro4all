@@ -236,6 +236,16 @@ def edit(request):
     return HTTPFound(location=request.route_url('home'))
 
 
+@view_config(route_name='delete', renderer='json', permission='edit', request_method='POST')
+def delete(request):
+    report_id = request.POST['id']
+    session = DBSession()
+    report = session.query(Report).filter(Report.id == report_id).one()
+    session.delete(report)
+    session.commit()
+    return {'Result': 'OK'}
+
+
 @view_config(route_name='logout', permission='edit', renderer='logout.mako', request_method="GET")
 def logout(request):
     return {}

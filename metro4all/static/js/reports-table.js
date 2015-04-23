@@ -23,6 +23,7 @@ metroBugs.modules['reportsTable'] = {
             },
             fields: {
                 id: {
+                    key: true,
                     title: '#',
                     width: '3%',
                     edit: false

@@ -29,6 +29,7 @@ def main(global_config, **settings):
     config.add_route('reports_list', '/reports/list')
     config.add_route('change_report_state', '/reports/{id}/state/change')
     config.add_route('edit', '/edit')
+    config.add_route('delete', '/reports/delete')
     config.add_route('login', '/login')
     config.add_route('logout', '/logout')
     config.scan()
