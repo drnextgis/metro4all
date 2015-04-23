@@ -1,3 +1,8 @@
+<%
+    from pyramid.security import authenticated_userid
+    auth = 'true' if authenticated_userid(request) else 'false'
+%>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -40,7 +45,15 @@
 <script src="${request.static_url('metro4all:static/contrib/mustache/mustache.min.js')}"
         type="text/javascript"></script>
 <script type="text/javascript">
-    window.application_root = '${request.route_url('home')}';
+    window.metroBugs = {};
+    metroBugs.view = {};
+    metroBugs.viewmodel = {};
+    metroBugs.modules = {};
+    metroBugs.templates = {
+        state_checkbox: null
+    };
+    metroBugs.application_root = '${request.route_url('home')}';
+    metroBugs.auth = ${auth};
 </script>
     <%block name="scripts"/>
 </body>
