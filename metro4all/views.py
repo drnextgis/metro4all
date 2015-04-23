@@ -31,6 +31,7 @@ from .models import (
     Node
 )
 
+from sqlalchemy import and_, or_
 from sqlalchemy.orm import joinedload
 
 
@@ -61,9 +62,13 @@ def reports_list(request):
         .options(joinedload('node')) \
         .options(joinedload('node.stations')) \
         .join(ReportCategory, Report.category == ReportCategory.id) \
-        .join(City, Report.city == City.old_keyname) \
-        .order_by(column_sorted) \
-        .slice(start_index, start_index + page_size)
+        .join(City, Report.city == City.old_keyname)
+
+    clauses = _build_filter(request)
+    if clauses:
+        query = query.filter(or_(*clauses))
+
+    query = query.order_by(column_sorted).slice(start_index, start_index + page_size)
 
     reports_from_db = query.all()
 
@@ -94,13 +99,27 @@ def reports_list(request):
     }
 
 
+def _build_filter(request):
+    clauses = []
+
+    for parameter in request.POST:
+        value = request.POST[parameter]
+        if value:
+            item_clause = [map_report_fields(parameter) == value]
+            clauses.append(and_(*item_clause).self_group())
+
+    return clauses
+
+
 def map_report_fields(view_field):
     return {
         'id': Report.id,
         'city_name': City.translation['name_ru'],
         'report_on': Report.report_on,
         'category_name': ReportCategory.translation['name_ru'],
-        'fixed': Report.fixed
+        'fixed': Report.fixed,
+        'category_id': ReportCategory.id,
+        'city_id': City.id
     }.get(view_field, None)
 
 

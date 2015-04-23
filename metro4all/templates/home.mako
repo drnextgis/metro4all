@@ -21,7 +21,7 @@
                     <div class="row">
                         <div class="col select">
                             <label>Город</label>
-                            <select class="browser-default">
+                            <select class="browser-default" id="selectCity">
                                 <option value="" selected>Не выбран</option>
                                 %for city in cities:
                                     <option value="${city.id}">${city.translation['name_ru']}</option>
@@ -36,7 +36,7 @@
 ##                        </div>
                         <div class="col select">
                             <label>Категория</label>
-                            <select class="browser-default">
+                            <select class="browser-default" id="selectCategory">
                                 <option value="" selected>Не выбрана</option>
                                 %for cat in categories:
                                     <option value="${cat.id}">${cat.translation['name_ru']}</option>
