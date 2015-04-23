@@ -33,6 +33,7 @@ class Report(Base, JsonifyMixin):
     schema_x = Column(Integer, nullable=True)
     schema_y = Column(Integer, nullable=True)
     report_on = Column(DateTime(timezone=False))
+    receive_on = Column(DateTime(timezone=False), default=datetime.datetime.now)
     package_version = Column(Integer, nullable=False)
     message = Column(Unicode, nullable=False)
     email = Column(Unicode, nullable=True)
