@@ -86,7 +86,7 @@ metroBugs.modules['reportsTable'] = {
                         var preview = data.record.preview,
                             html = '';
                         if (preview) {
-                            html = '<a data-rel="lightcase" href="http://reports.metro4all.ru/images/' +
+                            html = '<a data-rel="lightcase" href="http://reports.metro4all.org/images/' +
                             preview +
                             '.jpg"><i class="mdi-social-share"></i></a>';
                         }
@@ -104,7 +104,7 @@ metroBugs.modules['reportsTable'] = {
                         if (photosCount > 0) {
                             for (var i = 0; i < photosCount; i++) {
                                 html += '<a data-rel="lightcase:' + data.record.id +
-                                '" href="http://reports.metro4all.ru/images/' +
+                                '" href="http://reports.metro4all.org/images/' +
                                 photos[i].photo +
                                 '.jpg"><i ' + (i == 0 ? 'class="mdi-maps-local-see' : '') +
                                 '"></i></a>';
