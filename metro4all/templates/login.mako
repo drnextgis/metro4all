@@ -1,6 +1,6 @@
 <%inherit file="_master.mako"></%inherit>
 
-<%block name="title">Редактор сообщения</%block>
+<%block name="title">Логин</%block>
 
 <%block name="css">
     <link href="${request.static_url('metro4all:static/contrib/jtable.2.4.0/themes/metro/metro4all/jtable.css')}"
