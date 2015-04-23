@@ -107,7 +107,7 @@ metroBugs.modules['reportsTable'] = {
                                 '" href="http://reports.metro4all.org/images/' +
                                 photos[i].photo +
                                 '.jpg"><i ' + (i == 0 ? 'class="mdi-maps-local-see' : '') +
-                                '"></i></a>';
+                                '"></i>' + (i == 0 ? '<i class="count">' + photosCount + '</i>' : '') + '</a>';
                             }
                         }
                         return html;

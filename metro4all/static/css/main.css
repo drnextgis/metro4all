@@ -99,6 +99,10 @@ div.title {
     background: transparent;
 }
 
+#reportsTable i.count {
+    font-size: 15px;
+}
+
 div.filter div.collapsible-header {
     color: #8f8f8f;
 }
