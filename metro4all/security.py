@@ -1,5 +1,4 @@
-from pyramid.security import Allow
-from pyramid.security import Everyone
+from pyramid.security import Allow, Everyone
 
 
 class Root(object):
@@ -11,9 +10,8 @@ class Root(object):
     def __init__(self, request):
         self.request = request
 
-
-USERS = {'admin': 'admin'}
-GROUPS = {'admin': ['group:admin']}
+USERS = None
+GROUPS = None
 
 
 def groupfinder(user_id, request):
