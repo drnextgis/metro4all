@@ -34,13 +34,16 @@ from .models import (
 from sqlalchemy import and_, or_
 from sqlalchemy.orm import joinedload
 
+import transaction
+
 
 @view_config(route_name='home', renderer='home.mako')
 def home(request):
     session = DBSession()
     return {
         'cities': session.query(City).order_by(City.translation['name_ru']),
-        'categories': session.query(ReportCategory).order_by(ReportCategory.translation['name_ru'])
+        'categories': session.query(ReportCategory).order_by(ReportCategory.translation['name_ru']),
+        'reports': session.query(Report).order_by(Report.id)
     }
 
 
@@ -187,19 +190,22 @@ def create_report(request):
         spath = upload(path, screenshot)
         report.preview = spath
 
-    DBSession.add(report)
-    DBSession.flush()
-
+    session = DBSession()
+    session.add(report)
+    session.flush()
+    session.refresh(report)
+    report_id = report.id
     if photos is not None:
         for photo in photos:
             ppath = upload(path, photo)
-            report_photo = ReportPhoto(report=report.id, photo=ppath)
+            report_photo = ReportPhoto(report=report_id, photo=ppath)
             DBSession.add(report_photo)
 
-    DBSession.commit()
+    transaction.commit()
+    session.close()
 
     return Response(
-        json.dumps(dict(id=report.id)),
+        json.dumps(dict(id=report_id)),
         content_type=b'application/json')
 
 
@@ -209,16 +215,19 @@ def change_report_state(request):
     state = request.POST['state']
     report_id = request.matchdict['id']
 
-    session = DBSession()
-    report = session.query(Report).filter(Report.id == report_id).one()
-    report.fixed = state
-    session.commit()
-    auth = 'true' if authenticated_userid(request) else 'false'
-    return {
-        'id': report.id,
-        'fixed': report.fixed,
-        'auth': auth
-    }
+    result = None
+    with transaction.manager:
+        session = DBSession()
+        report = session.query(Report).filter(Report.id == report_id).one()
+        report.fixed = state
+        auth = 'true' if authenticated_userid(request) else 'false'
+        result = {
+            'id': report.id,
+            'fixed': report.fixed,
+            'auth': auth
+        }
+        session.close()
+    return result
 
 
 @view_config(name='login', renderer='login.mako')
@@ -258,11 +267,12 @@ def edit(request):
 @view_config(route_name='delete', renderer='json', permission='edit', request_method='POST')
 def delete(request):
     report_id = request.POST['id']
-    session = DBSession()
-    report = session.query(Report).filter(Report.id == report_id).one()
-    session.delete(report)
-    session.commit()
-    return {'Result': 'OK'}
+    with transaction.manager:
+        session = DBSession()
+        report = session.query(Report).filter(Report.id == report_id).one()
+        session.delete(report)
+        return {'Result': 'OK'}
+        session.close()
 
 
 @view_config(route_name='logout', permission='edit', renderer='logout.mako', request_method="GET")
