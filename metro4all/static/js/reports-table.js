@@ -15,7 +15,7 @@ metroBugs.modules['reportsTable'] = {
 
         jtableSettings = {
             paging: true,
-            pageSize: 10,
+            pageSize: 50,
             sorting: true,
             defaultSorting: 'report_on DESC',
             actions: {
