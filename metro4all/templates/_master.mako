@@ -26,9 +26,8 @@
 
     <div class="row title">
         <div class="col s12 blue-text text-lighten-5">
-            <h2>MetroForAll</h2>
-
-            <p>Система сбора сообщений от пользователей</p>
+            <h2><a href="${request.route_url('home')}">Metro4All</a></h2>
+            <p>Система сбора сообщений от пользователей с <a href="https://play.google.com/store/apps/details?id=com.nextgis.metroaccess" target="_blank">мобильных устройств</a></p>
         </div>
     </div>
 
