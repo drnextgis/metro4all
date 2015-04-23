@@ -55,7 +55,17 @@ def reports_list(request):
     order_direction = 'desc' if sorting[1] == 'DESC' else 'asc'
     column_sorted = getattr(map_report_fields(sorting[0]), order_direction)()
 
-    reports_count = session.query(Report).count()
+    clauses = _build_filter(request)
+
+    reports_count_query = session.query(Report)\
+        .options(joinedload('photos')) \
+        .options(joinedload('node')) \
+        .options(joinedload('node.stations')) \
+        .join(ReportCategory, Report.category == ReportCategory.id) \
+        .join(City, Report.city == City.old_keyname)
+    if clauses:
+        reports_count_query = reports_count_query.filter(and_(*clauses))
+    reports_count = reports_count_query.count()
 
     query = session.query(Report, ReportCategory.translation['name_ru'], City.translation['name_ru']) \
         .options(joinedload('photos')) \
@@ -64,7 +74,6 @@ def reports_list(request):
         .join(ReportCategory, Report.category == ReportCategory.id) \
         .join(City, Report.city == City.old_keyname)
 
-    clauses = _build_filter(request)
     if clauses:
         query = query.filter(or_(*clauses))
 
