@@ -9,10 +9,16 @@
           rel="stylesheet" type="text/css"/>
 </%block>
 
-<%block name="container_id">id="edit"</%block>
-
 <div class="row">
-    <div class="col s12">
-        <h3>Сообщение №${report.id}</h3>
+    <div class="row">
+        <form class="col s12" method="post">
+            <div class="row">
+                <div class="input-field col s6">
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Logout
+                        <i class="mdi-content-send right"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
