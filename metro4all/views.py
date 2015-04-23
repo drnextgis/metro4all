@@ -221,13 +221,14 @@ def change_report_state(request):
         session = DBSession()
         report = session.query(Report).filter(Report.id == report_id).one()
         report.fixed = state
-        auth = 'true' if authenticated_userid(request) else 'false'
+        session.flush()
+        session.refresh(report)
+        auth = True if authenticated_userid(request) else False
         result = {
             'id': report.id,
             'fixed': report.fixed,
             'auth': auth
         }
-        session.close()
     return result
 
 
