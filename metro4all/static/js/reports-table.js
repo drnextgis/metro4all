@@ -124,13 +124,8 @@ metroBugs.modules['reportsTable'] = {
                 context.bindCheckboxesStateEvents();
             };
         } else {
-            jtableSettings.fields.edit = {
-                width: '2%',
-                sorting: false,
-                display: function (data) {
-                    return '<a href="' + metroBugs.application_root + 'edit' + '"><i class="mdi-editor-border-color"></i></a>';
-                },
-                edit: false
+            jtableSettings.recordsLoaded = function () {
+                $('a[data-rel^=lightcase]').lightcase();
             };
         }
 
