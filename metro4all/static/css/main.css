@@ -15,6 +15,10 @@ div.title {
     border-radius: 0 0 1em 1em;
 }
 
+div.title a {
+    color: #FFF;
+}
+
 #reportsTable td, th {
     padding: 3px 3px;
     font-family: Roboto, sans-serif;
