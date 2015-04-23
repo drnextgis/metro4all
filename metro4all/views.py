@@ -43,15 +43,6 @@ def home(request):
     }
 
 
-@view_config(route_name='reports', renderer='reports.mako', request_method='GET')
-def reports(request):
-    session = DBSession()
-    return {
-        'cities': session.query(City).order_by(City.translation['name_ru']),
-        'categories': session.query(ReportCategory).order_by(ReportCategory.translation['name_ru'])
-    }
-
-
 @view_config(route_name='reports_list', renderer='json')
 def reports_list(request):
     session = DBSession()
