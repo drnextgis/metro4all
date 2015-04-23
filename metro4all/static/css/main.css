@@ -13,6 +13,7 @@ div.subtitle {
 div.title {
     background-color: #33B8DA;
     border-radius: 0 0 1em 1em;
+    color: #FFF;
 }
 
 div.title a {

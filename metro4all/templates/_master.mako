@@ -25,8 +25,8 @@
 <div class="container" <%block name="container_id"/>>
 
     <div class="row title">
-        <div class="col s12 blue-text text-lighten-5">
-            <h2><a href="${request.route_url('home')}">Metro4All</a></h2>
+        <div class="col s12">
+            <h2><a href="${request.route_url('home')}">Сообщения</a> для <a href="http://metro4all.org/" target="_blank">Metro4All</a></h2>
             <p>Система сбора сообщений от пользователей с <a href="https://play.google.com/store/apps/details?id=com.nextgis.metroaccess" target="_blank">мобильных устройств</a></p>
         </div>
     </div>
