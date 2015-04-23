@@ -27,7 +27,7 @@ from geoalchemy2 import Geometry
 
 from zope.sqlalchemy import ZopeTransactionExtension
 
-DBSession = scoped_session(sessionmaker())
+DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
 
 PORTAL_DIRECTION = ('in', 'out', 'both')
