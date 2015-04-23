@@ -43,4 +43,4 @@ class Report(Base, JsonifyMixin):
     node_id = Column(ForeignKey('node.id'), nullable=True)
     node = relationship(Node)
     category = Column(ForeignKey('report_category.id'), nullable=False)
-    photos = relationship(ReportPhoto)
+    photos = relationship(ReportPhoto, cascade="all, delete-orphan")
