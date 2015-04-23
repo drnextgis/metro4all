@@ -15,5 +15,6 @@ $(document).ready(function () {
         for (var module in metroBugs.modules) {
             metroBugs.modules[module].init();
         }
+        metroBugs.modules.reportsTableFilter.updateTable();
     });
 });

@@ -20,6 +20,14 @@
                 <form class="col s12">
                     <div class="row">
                         <div class="col select">
+                            <label>Статус</label>
+                            <select class="browser-default" id="selectStatus">
+                                <option value="">Не выбран</option>
+                                <option value="false" selected>Открыт</option>
+                                <option value="true">Закрыт</option>
+                            </select>
+                        </div>
+                        <div class="col select">
                             <label>Город</label>
                             <select class="browser-default" id="selectCity">
                                 <option value="" selected>Не выбран</option>
@@ -28,12 +36,6 @@
                                 %endfor
                             </select>
                         </div>
-##                        <div class="col select">
-##                            <label>Узел</label>
-##                            <select class="browser-default" disabled>
-##                                <option value="" selected>Не выбран</option>
-##                            </select>
-##                        </div>
                         <div class="col select">
                             <label>Категория</label>
                             <select class="browser-default" id="selectCategory">

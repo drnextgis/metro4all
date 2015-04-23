@@ -131,7 +131,8 @@ def map_report_fields(view_field):
         'category_name': ReportCategory.translation['name_ru'],
         'fixed': Report.fixed,
         'category_id': ReportCategory.id,
-        'city_id': City.id
+        'city_id': City.id,
+        'status': Report.fixed
     }.get(view_field, None)
 
 

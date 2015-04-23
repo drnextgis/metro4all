@@ -7,6 +7,7 @@ metroBugs.modules['reportsTableFilter'] = {
     setDom: function () {
         metroBugs.view.$selectCity = $('#selectCity');
         metroBugs.view.$selectCategory = $('#selectCategory');
+        metroBugs.view.$selectStatus = $('#selectStatus');
     },
 
     bindEvents: function () {
@@ -17,6 +18,9 @@ metroBugs.modules['reportsTableFilter'] = {
         metroBugs.view.$selectCategory.change(function () {
             context.updateTable();
         });
+        metroBugs.view.$selectStatus.change(function () {
+            context.updateTable();
+        });
     },
 
     updateTable: function () {
@@ -24,7 +28,8 @@ metroBugs.modules['reportsTableFilter'] = {
 
         metroBugs.view.$table.jtable('load', {
             category_id: view.$selectCategory.val(),
-            city_id: view.$selectCity.val()
+            city_id: view.$selectCity.val(),
+            status: view.$selectStatus.val()
         });
     }
 };

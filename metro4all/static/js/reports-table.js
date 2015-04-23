@@ -2,7 +2,6 @@ metroBugs.modules['reportsTable'] = {
     init: function () {
         this.setDom();
         this.initReportTable();
-        this.loadTable();
     },
 
     setDom: function () {
@@ -130,10 +129,6 @@ metroBugs.modules['reportsTable'] = {
         }
 
         metroBugs.view.$table.jtable(jtableSettings);
-    },
-
-    loadTable: function () {
-        metroBugs.view.$table.jtable('load');
     },
 
     bindCheckboxesStateEvents: function ($element) {
