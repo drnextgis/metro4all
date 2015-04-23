@@ -103,6 +103,10 @@ div.title {
     font-size: 15px;
 }
 
+#reportsTable button.jtable-delete-command-button span {
+    display: none;
+}
+
 div.filter div.collapsible-header {
     color: #8f8f8f;
 }
