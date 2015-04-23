@@ -3,7 +3,7 @@
         <div class="indeterminate"></div>
     </div>
     <p class="state">
-        <input class="state" type="checkbox"  {{#fixed}}checked="checked"{{/fixed}} id="chb-{{id}}"/>
+        <input {{^auth}}disabled="disabled"{{/auth}} class="state" type="checkbox" {{#fixed}}checked="checked"{{/fixed}} id="chb-{{id}}"/>
         <label for="chb-{{id}}">{{#fixed}}Закрыт{{/fixed}}{{^fixed}}Открыт{{/fixed}}</label>
     </p>
 </div>
