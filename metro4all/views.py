@@ -78,7 +78,7 @@ def reports_list(request):
         .join(City, Report.city == City.old_keyname)
 
     if clauses:
-        query = query.filter(or_(*clauses))
+        query = query.filter(and_(*clauses))
 
     query = query.order_by(column_sorted).slice(start_index, start_index + page_size)
 
